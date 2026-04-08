@@ -20,7 +20,6 @@ def parse_text(request: TextRequest):
     edges = []
 
     for token in doc:
-        # 过滤 ROOT
         if token.dep_ != "ROOT":
             edges.append({
                 "headLemma": token.head.lemma_,
@@ -29,12 +28,16 @@ def parse_text(request: TextRequest):
                 "headText": token.head.text,
                 "targetText": token.text,
                 "headIndex": token.head.i,
-                "targetIndex": token.i
+                "targetIndex": token.i,
+
+                # ✅ 关键新增
+                "headPos": token.head.pos_,
+                "targetPos": token.pos_,
             })
 
     return edges
 
-# ✅ 健康检查（部署用）
+# ✅ 健康检查
 @app.get("/")
 def root():
     return {"status": "ok"}

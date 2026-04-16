@@ -22,14 +22,17 @@ def parse_text(request: TextRequest):
     # ----------------------------
     # tokens（🔥 新增）
     # ----------------------------
-    for token in doc:
-        tokens.append({
-            "text": token.text,
-            "lemma": token.lemma_,
-            "index": token.i,
-            "pos": token.pos_,
-            "is_stop": token.is_stop
-        })
+for token in doc:
+    tokens.append({
+        "text": token.text,
+        "lemma": token.lemma_,
+        "index": token.i,
+        "pos": token.pos_,
+        "tag": token.tag_,              # 🔥 新增（给 possessive 用）
+        "dep": token.dep_,              # 🔥 新增（关键）
+        "head": token.head.i,           # 🔥 新增（关键）
+        "is_stop": token.is_stop
+    })
 
     # ----------------------------
     # edges（你原来的）
